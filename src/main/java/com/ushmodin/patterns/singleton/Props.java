@@ -1,4 +1,4 @@
-package com.ushmodin.patterns;
+package com.ushmodin.patterns.singleton;
 
 import java.io.IOException;
 import java.util.Properties;

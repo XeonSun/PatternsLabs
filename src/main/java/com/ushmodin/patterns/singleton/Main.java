@@ -1,4 +1,4 @@
-package com.ushmodin.patterns;
+package com.ushmodin.patterns.singleton;
 
 public class Main {
     public static void main(String[] args) {
