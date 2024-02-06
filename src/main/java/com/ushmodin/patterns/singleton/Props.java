@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Props {
-    static Props instance;
+    private static Props instance;
     private Properties data;
     private Props(){
         data = new Properties();
