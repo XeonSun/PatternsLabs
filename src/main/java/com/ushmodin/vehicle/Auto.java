@@ -108,8 +108,10 @@ public class Auto implements Transport,Cloneable{
     public void deleteModel(String name, double price) throws NoSuchModelNameException {
         if (price < 0) throw new ModelPriceOutOfBoundsException(price);
         int pos = getModelIndexByName(name);
+
         if (pos < 0) throw new NoSuchModelNameException(name);
         var newModels = new Model[models.length - 1];
+
         if (pos != 0)
             System.arraycopy(models, 0, newModels, 0, pos);
         System.arraycopy(models, pos + 1, newModels, pos, models.length - (pos + 1));
@@ -121,15 +123,12 @@ public class Auto implements Transport,Cloneable{
     }
 
     private Model getModelByName(String name) throws NoSuchModelNameException {
-        int i = 0;
-        while (i < models.length && !models[i].name.equals(name)) {
-            i++;
-        }
-        if (i < models.length)
-            return models[i];
-        else {
+        var model = Arrays.stream(models).filter(item -> item.name.equals(name)).findFirst();
+
+        if (model.isEmpty())
             throw new NoSuchModelNameException(name);
-        }
+
+        return model.get();
     }
 
     private int getModelIndexByName(String name) {
@@ -144,7 +143,7 @@ public class Auto implements Transport,Cloneable{
     }
 
     @Override
-    public Auto clone(){
+    public synchronized Auto clone(){
         try {
             var clone = (Auto) super.clone();
             clone.models = Arrays.stream(models).map(Model::clone).toArray(Model[]::new);
