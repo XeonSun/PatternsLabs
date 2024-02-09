@@ -155,7 +155,7 @@ public class Motorcycle implements Transport,Cloneable{
     }
 
     @Override
-    public Motorcycle clone() {
+    public synchronized Motorcycle clone() {
         try {
             var clone = (Motorcycle) super.clone();
 

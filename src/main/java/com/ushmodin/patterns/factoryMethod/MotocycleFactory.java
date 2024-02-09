@@ -7,8 +7,6 @@ public class MotocycleFactory implements TransportFactory{
     public MotocycleFactory(){
 
     }
-
-    @Override
     public Transport createInstance(String mark, int size) {
         return new Motorcycle(mark,size);
     }

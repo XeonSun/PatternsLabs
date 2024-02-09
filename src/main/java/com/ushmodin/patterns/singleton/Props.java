@@ -6,6 +6,10 @@ import java.util.Properties;
 public class Props {
     private static Props instance;
     private Properties data;
+    public Properties getData() {
+        //Clone data to avoid modifications in data field
+        return (Properties) data.clone();
+    }
     private Props(){
         data = new Properties();
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
@@ -16,13 +20,12 @@ public class Props {
         }
     }
 
-    public static Props getInstance(){
+    public static synchronized Props getInstance(){
         if (instance == null) {
             instance = new Props();
         }
         return instance;
     }
-
     @Override
     public String toString() {
         return data.toString();

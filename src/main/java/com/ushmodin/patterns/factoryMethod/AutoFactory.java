@@ -8,7 +8,6 @@ public class AutoFactory implements TransportFactory{
 
     }
 
-    @Override
     public Transport createInstance(String mark, int size) {
         return new Auto(mark,size);
     }
