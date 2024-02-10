@@ -1,5 +1,6 @@
 package com.ushmodin.vehicle;
 
+import com.ushmodin.patterns.decorator.SyncronizedTransport;
 import com.ushmodin.patterns.factoryMethod.AutoFactory;
 import com.ushmodin.patterns.factoryMethod.TransportFactory;
 import com.ushmodin.vehicle.exception.DuplicateModelNameException;
@@ -65,14 +66,14 @@ public class TransportWorker {
             transport.changeName(name, newName);
         } catch (DuplicateModelNameException e) {
             System.out.println(e.getMessage());
-        }catch (NoSuchModelNameException e2){
+        } catch (NoSuchModelNameException e2) {
             System.out.println(e2.getMessage());
         }
     }
 
-    public static void setModelPrice(Transport transport, String name, double price){
-        try{
-            transport.setModelPrice(name,price);
+    public static void setModelPrice(Transport transport, String name, double price) {
+        try {
+            transport.setModelPrice(name, price);
         } catch (NoSuchModelNameException e) {
             System.out.println(e.getMessage());
         } catch (ModelPriceOutOfBoundsException e2) {
@@ -80,8 +81,12 @@ public class TransportWorker {
         }
     }
 
-    public static Transport createInstance(String name, int size){
-        return factory.createInstance(name,size);
+    public static Transport createInstance(String name, int size) {
+        return factory.createInstance(name, size);
+    }
+
+    public static Transport synchronizedTransport(Transport transport) {
+        return new SyncronizedTransport(transport);
     }
 
 }
