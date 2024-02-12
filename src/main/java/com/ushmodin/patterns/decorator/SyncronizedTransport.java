@@ -4,6 +4,8 @@ import com.ushmodin.vehicle.Transport;
 import com.ushmodin.vehicle.exception.DuplicateModelNameException;
 import com.ushmodin.vehicle.exception.NoSuchModelNameException;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class SyncronizedTransport implements Transport,Cloneable {
     private Transport instance;
     public SyncronizedTransport(Transport transport) {
@@ -62,6 +64,14 @@ public class SyncronizedTransport implements Transport,Cloneable {
 
     @Override
     public synchronized Transport clone() {
-        return new SyncronizedTransport(instance.clone());
+
+        try {
+            SyncronizedTransport clone = (SyncronizedTransport) super.clone();
+            clone.instance = instance.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
