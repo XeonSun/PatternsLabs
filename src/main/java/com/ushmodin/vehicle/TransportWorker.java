@@ -1,6 +1,6 @@
 package com.ushmodin.vehicle;
 
-import com.ushmodin.patterns.decorator.SyncronizedTransport;
+import com.ushmodin.patterns.decorator.SynchronizeTransport;
 import com.ushmodin.patterns.factoryMethod.AutoFactory;
 import com.ushmodin.patterns.factoryMethod.TransportFactory;
 import com.ushmodin.vehicle.exception.DuplicateModelNameException;
@@ -86,7 +86,7 @@ public class TransportWorker {
     }
 
     public static Transport synchronizedTransport(Transport transport) {
-        return new SyncronizedTransport(transport);
+        return new SynchronizeTransport(transport);
     }
 
 }

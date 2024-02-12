@@ -4,9 +4,9 @@ import com.ushmodin.vehicle.Transport;
 import com.ushmodin.vehicle.exception.DuplicateModelNameException;
 import com.ushmodin.vehicle.exception.NoSuchModelNameException;
 
-public class SyncronizedTransport implements Transport,Cloneable {
+public class SynchronizeTransport implements TransportDecorator,Cloneable {
     private Transport instance;
-    public SyncronizedTransport(Transport transport) {
+    public SynchronizeTransport(Transport transport) {
         instance = transport;
     }
 
@@ -62,6 +62,6 @@ public class SyncronizedTransport implements Transport,Cloneable {
 
     @Override
     public synchronized Transport clone() {
-        return new SyncronizedTransport(instance.clone());
+        return new SynchronizeTransport(instance.clone());
     }
 }

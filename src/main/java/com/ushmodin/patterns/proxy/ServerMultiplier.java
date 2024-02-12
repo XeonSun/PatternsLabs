@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 public class ServerMultiplier implements Multipiler{
     @Override
     public double mult(double a, double b) {
-        try(var socket = new Socket("localhost",5000)) {
+        try(var socket = new Socket("localhost",10000)) {
             var input = new DataInputStream(socket.getInputStream());
             var output = new DataOutputStream(socket.getOutputStream());
             output.writeDouble(a);

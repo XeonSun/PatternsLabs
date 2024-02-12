@@ -15,9 +15,11 @@ public class Main {
             e.printStackTrace();
         }
 
-        try(var reader = new BufferedReader(new InputStreamReader(new FileInputStream("test.out")))) {
-            while (reader.ready())
-                System.out.println(reader.readLine());
+        try(var reader = new FileInputStream("test.out")) {
+            StringsReadableStream readableStream = new StringsInputStream(reader);
+            for (var str :readableStream.read()) {
+                System.out.println(str);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

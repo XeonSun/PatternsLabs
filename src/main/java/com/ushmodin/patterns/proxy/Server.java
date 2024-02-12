@@ -7,7 +7,7 @@ import java.net.ServerSocket;
 
 public class Server {
     public static void main(String[] args) {
-        try(var ss = new ServerSocket(5000);) {
+        try(var ss = new ServerSocket(10000);) {
         while (true) {
             try (var client = ss.accept();) {
                 var input = new DataInputStream(client.getInputStream());

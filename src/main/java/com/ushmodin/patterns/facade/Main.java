@@ -6,5 +6,6 @@ import com.ushmodin.patterns.facade.traffic.TrafficSimulator;
 public class Main {
     public static void main(String[] args){
             TrafficSimulator t = new TrafficSimulator();
+            t.start();
     }
 }
