@@ -6,13 +6,17 @@ import java.awt.*;
 public class TrafficSimulator {
 
     public TrafficSimulator() {
+        //start();
+    }
+
+    public static void start() {
         EventQueue.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             }
 
-            JFrame frame = new JFrame("Test");
+            JFrame frame = new JFrame("Traffic Simulator");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLayout(new BorderLayout());
             frame.add(new Scene());

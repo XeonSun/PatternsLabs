@@ -5,9 +5,10 @@ package com.ushmodin.patterns.proxy;
 public class Client {
     public static void main(String args[]){
         double a = 10.1;
-        double b = Double.NaN;
+        double b = 10;
 
         Multipiler multipiler = new ProxyMultiplier();
         System.out.println(multipiler.mult(a,b));
+        System.out.println("finish");
     }
 }
