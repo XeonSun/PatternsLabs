@@ -62,6 +62,6 @@ public class SynchronizeTransport implements TransportDecorator,Cloneable {
 
     @Override
     public synchronized Transport clone() {
-        return new SyncronizedTransport(instance.clone());
+        return new SynchronizeTransport(instance.clone());
     }
 }
