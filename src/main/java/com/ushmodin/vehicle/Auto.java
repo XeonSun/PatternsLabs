@@ -1,17 +1,28 @@
 package com.ushmodin.vehicle;
 
+import com.ushmodin.patterns.command.PrintCommand;
 import com.ushmodin.vehicle.exception.DuplicateModelNameException;
 import com.ushmodin.vehicle.exception.ModelPriceOutOfBoundsException;
 import com.ushmodin.vehicle.exception.NoSuchModelNameException;
 
+import java.io.Writer;
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class Auto implements Transport,Cloneable{
+public class Auto implements Transport,Cloneable,Iterable<Auto.Model>{
     //поле типа String, хранящее марку автомобиля
     private String brand;
     private Model[] models;
     private static final String DEFAULT_NAME = "default";
     private static final double DEFAULT_PRICE = 0.0;
+
+
+    private PrintCommand command;
+    public void setCommand(PrintCommand command) {
+        this.command = command;
+    }
+
+
 
     //метод для получения марки автомобиля
     public String getBrand() {
@@ -32,8 +43,13 @@ public class Auto implements Transport,Cloneable{
         }
     }
 
+    @Override
+    public Iterator<Model> iterator() {
+        return new AutoIterator(this.models);
+    }
+
     //внутренний класс Модель
-    private static class Model implements Cloneable{
+    public static class Model implements Cloneable{
         private String name = null;
         private double price = Double.NaN;
 
@@ -50,8 +66,34 @@ public class Auto implements Transport,Cloneable{
                 throw new AssertionError();
             }
         }
-    }
 
+        @Override
+        public String toString() {
+            return "Model{" +
+                    "name='" + name + '\'' +
+                    ", price=" + price +
+                    '}';
+        }
+    }
+    //Класс итератора
+    private static class AutoIterator implements Iterator<Model>{
+        private Model[] models;
+        private int counter = 0;
+
+        public AutoIterator(Model[] models) {
+            this.models = models;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return counter < models.length;
+        }
+
+        @Override
+        public Model next() {
+            return models[counter++];
+        }
+    }
 
     //метод для модификации значения названия модели
     public void changeName(String name, String newName) throws NoSuchModelNameException, DuplicateModelNameException {
@@ -151,6 +193,11 @@ public class Auto implements Transport,Cloneable{
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
+    }
+
+    public void print(Writer writer){
+        if(command != null)
+            command.print(writer,this);
     }
 
 }
