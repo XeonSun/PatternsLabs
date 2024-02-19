@@ -9,17 +9,15 @@ public class RowCommand implements Command {
     private Writer writer;
     private Transport transport;
 
-    private ModelPrinter modelPrinter;
 
-    public RowCommand(Writer writer, Transport transport, ModelPrinter modelPrinter) {
+    public RowCommand(Writer writer, Transport transport) {
         this.writer = writer;
         this.transport = transport;
-        this.modelPrinter = modelPrinter;
     }
 
 
     @Override
     public void execute() {
-       modelPrinter.printRow(writer,transport);
+       ModelPrinter.printRow(writer,transport);
     }
 }

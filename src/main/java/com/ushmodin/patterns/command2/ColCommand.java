@@ -8,16 +8,13 @@ public class ColCommand implements Command {
     private Writer writer;
     private Transport transport;
 
-    private ModelPrinter modelPrinter;
-
-    public ColCommand(Writer writer, Transport transport, ModelPrinter modelPrinter) {
+    public ColCommand(Writer writer, Transport transport) {
         this.writer = writer;
         this.transport = transport;
-        this.modelPrinter = modelPrinter;
     }
 
     @Override
     public void execute() {
-        modelPrinter.printCol(writer,transport);
+        ModelPrinter.printCol(writer,transport);
     }
 }

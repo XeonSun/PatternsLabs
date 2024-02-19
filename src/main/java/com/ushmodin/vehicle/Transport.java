@@ -1,5 +1,6 @@
 package com.ushmodin.vehicle;
 
+import com.ushmodin.patterns.visitor.Visitor;
 import com.ushmodin.vehicle.exception.DuplicateModelNameException;
 import com.ushmodin.vehicle.exception.NoSuchModelNameException;
 
@@ -34,4 +35,6 @@ public interface Transport extends Cloneable {
     int getModelsSize();
 
     Transport clone();
+
+    void accept(Visitor visitor);
 }

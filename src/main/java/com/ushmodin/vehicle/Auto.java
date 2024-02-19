@@ -1,28 +1,26 @@
 package com.ushmodin.vehicle;
 
 import com.ushmodin.patterns.command.PrintCommand;
+import com.ushmodin.patterns.visitor.Visitor;
 import com.ushmodin.vehicle.exception.DuplicateModelNameException;
 import com.ushmodin.vehicle.exception.ModelPriceOutOfBoundsException;
 import com.ushmodin.vehicle.exception.NoSuchModelNameException;
 
-import java.io.Writer;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class Auto implements Transport,Cloneable,Iterable<Auto.Model>{
+public class Auto implements Transport,Cloneable, Serializable,Iterable<Auto.Model>{
     //поле типа String, хранящее марку автомобиля
     private String brand;
     private Model[] models;
     private static final String DEFAULT_NAME = "default";
     private static final double DEFAULT_PRICE = 0.0;
-
-
     private PrintCommand command;
+
     public void setCommand(PrintCommand command) {
         this.command = command;
     }
-
-
 
     //метод для получения марки автомобиля
     public String getBrand() {
@@ -49,7 +47,7 @@ public class Auto implements Transport,Cloneable,Iterable<Auto.Model>{
     }
 
     //внутренний класс Модель
-    public static class Model implements Cloneable{
+    public static class Model implements Cloneable,Serializable{
         private String name = null;
         private double price = Double.NaN;
 
@@ -93,6 +91,29 @@ public class Auto implements Transport,Cloneable,Iterable<Auto.Model>{
         public Model next() {
             return models[counter++];
         }
+    }
+
+    public static class Memento{
+        private byte[] save;
+
+        private Memento(){}
+        private void setAuto(Auto auto){
+            try(var baos = new ByteArrayOutputStream();var oos = new ObjectOutputStream(baos)) {
+                oos.writeObject(auto);
+                save = baos.toByteArray();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        private Auto getAuto(){
+           try(var ois = new ObjectInputStream(new ByteArrayInputStream(save))) {
+               return (Auto) ois.readObject();
+           } catch (IOException | ClassNotFoundException e) {
+               throw new RuntimeException(e);
+           }
+        }
+
     }
 
     //метод для модификации значения названия модели
@@ -195,9 +216,27 @@ public class Auto implements Transport,Cloneable,Iterable<Auto.Model>{
         }
     }
 
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public void print(Writer writer){
         if(command != null)
             command.print(writer,this);
+    }
+
+    public Memento createMemento(){
+        Memento memento = new Memento();
+        memento.setAuto(this);
+        return memento;
+    }
+
+    public void restoreFromMemento(Memento memento){
+         Auto old = memento.getAuto();
+         this.models = old.models;
+         this.command = old.command;
+         this.brand = old.brand;
     }
 
 }

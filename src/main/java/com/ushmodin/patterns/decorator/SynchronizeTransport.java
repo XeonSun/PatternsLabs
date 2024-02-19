@@ -1,5 +1,6 @@
 package com.ushmodin.patterns.decorator;
 
+import com.ushmodin.patterns.visitor.Visitor;
 import com.ushmodin.vehicle.Transport;
 import com.ushmodin.vehicle.exception.DuplicateModelNameException;
 import com.ushmodin.vehicle.exception.NoSuchModelNameException;
@@ -63,5 +64,10 @@ public class SynchronizeTransport implements TransportDecorator,Cloneable {
     @Override
     public synchronized Transport clone() {
         return new SynchronizeTransport(instance.clone());
+    }
+
+    @Override
+    public synchronized void accept(Visitor visitor) {
+        instance.accept(visitor);
     }
 }

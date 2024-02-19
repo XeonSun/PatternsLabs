@@ -1,5 +1,6 @@
 package com.ushmodin.vehicle;
 
+import com.ushmodin.patterns.visitor.Visitor;
 import com.ushmodin.vehicle.exception.DuplicateModelNameException;
 import com.ushmodin.vehicle.exception.ModelPriceOutOfBoundsException;
 import com.ushmodin.vehicle.exception.NoSuchModelNameException;
@@ -175,6 +176,11 @@ public class Motorcycle implements Transport,Cloneable{
         } catch (DuplicateModelNameException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }
 

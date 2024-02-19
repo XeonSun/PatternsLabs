@@ -9,13 +9,12 @@ public class Main {
     public static void main(String[] args){
         try {
             var auto = new Auto("Car",5);
-            var modelPrinter = new ModelPrinter();
 
             var invoker = new Invoker();
-            invoker.setCommand(new ColCommand(new FileWriter("testCommand.txt"),auto, modelPrinter));
+            invoker.setCommand(new ColCommand(new FileWriter("testCommand.txt"),auto));
             invoker.invoke();
 
-            invoker.setCommand(new RowCommand(new FileWriter("testCommand2.txt"),auto, modelPrinter));
+            invoker.setCommand(new RowCommand(new FileWriter("testCommand2.txt"),auto));
             invoker.invoke();
 
 
