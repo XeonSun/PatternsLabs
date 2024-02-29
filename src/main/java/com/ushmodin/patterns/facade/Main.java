@@ -7,7 +7,6 @@ import java.io.IOException;
 //Тут бы неплохо использовать Абстрактную фабрику
 public class Main {
     public static void main(String[] args){
-            TrafficSimulator t = new TrafficSimulator();
-            t.start();
+            TrafficSimulator.start();
     }
 }

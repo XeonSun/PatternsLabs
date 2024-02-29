@@ -5,10 +5,6 @@ import java.awt.*;
 
 public class TrafficSimulator {
 
-    public TrafficSimulator() {
-        //start();
-    }
-
     public static void start() {
         EventQueue.invokeLater(() -> {
             try {
