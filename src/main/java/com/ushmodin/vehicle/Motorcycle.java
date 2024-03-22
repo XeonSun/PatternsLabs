@@ -5,7 +5,9 @@ import com.ushmodin.vehicle.exception.DuplicateModelNameException;
 import com.ushmodin.vehicle.exception.ModelPriceOutOfBoundsException;
 import com.ushmodin.vehicle.exception.NoSuchModelNameException;
 
-public class Motorcycle implements Transport,Cloneable{
+import java.io.Serializable;
+
+public class Motorcycle implements Transport,Cloneable, Serializable {
     private String brand;
 
     private int size = 0;
@@ -16,7 +18,7 @@ public class Motorcycle implements Transport,Cloneable{
         head.next = head;
     }
 
-    private static class Model{
+    private static class Model implements Serializable{
         private String name = null;
         private double price = Double.NaN;
         private Model prev = null;

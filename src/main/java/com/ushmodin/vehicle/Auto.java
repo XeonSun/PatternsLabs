@@ -74,7 +74,7 @@ public class Auto implements Transport,Cloneable, Serializable,Iterable<Auto.Mod
         }
     }
     //Класс итератора
-    private static class AutoIterator implements Iterator<Model>{
+    private static class AutoIterator implements Iterator<Model>,Serializable{
         private Model[] models;
         private int counter = 0;
 
